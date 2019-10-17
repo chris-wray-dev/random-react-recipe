@@ -1,26 +1,30 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import IngredientsAdder from './components/IngredientsAdder';
+import RecipeGenerator from './components/RecipeGenerator';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  state = {
+    ingredients: [],
+    showRecipe: false
+  }
+
+  addIngredients = (ingredients) => {
+    this.setState({ ingredients });
+    this.setState({ showRecipe: true });
+  }
+
+  render() {
+    return (
+      <>
+      <h1>Random Recipe Generator</h1>
+      <IngredientsAdder addIngredients={ this.addIngredients }/>
+      { this.state.showRecipe ? 
+      <RecipeGenerator ingredients={ this.state.ingredients } />
+      : null }
+      </>
+    );
+  }
 }
 
 export default App;
